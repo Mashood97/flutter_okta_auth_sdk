@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_okta_auth_sdk/base_request.dart';
 
 import 'dart:convert' show jsonEncode;
-import 'dart:js' as js;
+import 'platform/okta_sdk_interface.dart';
 
 class FlutterOktaAuthSdk {
   static const MethodChannel _channel = MethodChannel('flutter_okta_auth_sdk');
@@ -17,7 +17,10 @@ class FlutterOktaAuthSdk {
 
   Future<void> createConfig(BaseRequest request) async {
     isInitialized = false;
-    await _channel.invokeMethod("createConfig", convertBaseRequestToMap(request));
+    await _channel.invokeMethod(
+      "createConfig",
+      convertBaseRequestToMap(request),
+    );
     isInitialized = true;
   }
 
@@ -30,7 +33,7 @@ class FlutterOktaAuthSdk {
 
   Future<bool?> webSignIn(Map<String, dynamic> config) async {
     try {
-      await js.context.callMethod('loginOkta', [jsonEncode(config)]);
+      await webSignIn(config);
       return true;
     } catch (e) {
       debugPrint('Error calling loginOkta: $e');
@@ -54,7 +57,9 @@ class FlutterOktaAuthSdk {
 
   Future<bool> isAuthenticated() async {
     if (isInitialized == false) {
-      throw Exception("Cannot check authentication before initializing Okta SDK");
+      throw Exception(
+        "Cannot check authentication before initializing Okta SDK",
+      );
     }
     return await _channel.invokeMethod('isAuthenticated');
   }
@@ -75,7 +80,9 @@ class FlutterOktaAuthSdk {
 
   Future<bool> revokeAccessToken() async {
     if (isInitialized == false) {
-      throw Exception("Cannot revoke access token before initializing Okta SDK");
+      throw Exception(
+        "Cannot revoke access token before initializing Okta SDK",
+      );
     }
     return await _channel.invokeMethod('revokeAccessToken');
   }
@@ -89,7 +96,9 @@ class FlutterOktaAuthSdk {
 
   Future<bool> revokeRefreshToken() async {
     if (isInitialized == false) {
-      throw Exception("Cannot revoke refresh token before initializing Okta SDK");
+      throw Exception(
+        "Cannot revoke refresh token before initializing Okta SDK",
+      );
     }
     return await _channel.invokeMethod('revokeRefreshToken');
   }

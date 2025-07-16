@@ -1,3 +1,5 @@
+package example.android.app
+
 // android/app/build.gradle.kts
 
 plugins {

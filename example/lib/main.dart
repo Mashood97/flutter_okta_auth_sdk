@@ -8,8 +8,6 @@ import 'services/okta_auth_provider.dart';
 import 'splash_screen.dart';
 import 'config/configure_nonweb.dart' if (dart.library.html) 'config/configure_web.dart';
 
-import 'dart:js' as js;
-import 'dart:html';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,15 +30,15 @@ class MyApp extends StatelessWidget {
             var request = AuthOktaService.oktaBaseRequest;
 
             final config = convertBaseRequestToMap(request);
-            config['codeValue'] = window.location.href.split("=")[1].split('&')[0];
-
-            js.context.callMethod('loginTokenOkta', [config]);
-            window.addEventListener("message", (event) {
-              MessageEvent accessToken = event as MessageEvent;
-              if (accessToken.data != null && accessToken.data != "") {
-                debugPrint("token is ${accessToken.data}");
-              }
-            });
+            // config['codeValue'] = window.location.href.split("=")[1].split('&')[0];
+            //
+            // js.context.callMethod('loginTokenOkta', [config]);
+            // window.addEventListener("message", (event) {
+            //   MessageEvent accessToken = event as MessageEvent;
+            //   if (accessToken.data != null && accessToken.data != "") {
+            //     debugPrint("token is ${accessToken.data}");
+            //   }
+            // });
             return null;
           }
           return null;

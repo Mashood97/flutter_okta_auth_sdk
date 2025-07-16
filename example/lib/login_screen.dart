@@ -9,7 +9,6 @@ import 'package:flutter_okta_auth_sdk/base_request.dart';
 
 import 'landing_screen.dart';
 import 'services/okta_auth_provider.dart';
-import 'dart:html' as html;
 
 class LoginScreen extends StatefulWidget {
   static const routeName = '/login';
@@ -24,13 +23,13 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    html.window.onMessage.listen((event) {
-      final token = event.data.toString();
-      if (token.isNotEmpty) {
-        debugPrint("Received token from JS: $token");
-        // Navigator.of(context).pushNamed(LandingScreen.routeName);
-      }
-    });
+    // html.window.onMessage.listen((event) {
+    //   final token = event.data.toString();
+    //   if (token.isNotEmpty) {
+    //     debugPrint("Received token from JS: $token");
+    //     // Navigator.of(context).pushNamed(LandingScreen.routeName);
+    //   }
+    // });
   }
 
   @override
